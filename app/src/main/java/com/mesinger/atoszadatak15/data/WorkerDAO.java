@@ -10,6 +10,8 @@ import androidx.room.Update;
 
 import com.mesinger.atoszadatak15.model.Worker;
 
+import java.util.List;
+
 @Dao
 public interface WorkerDAO {
 
@@ -22,8 +24,8 @@ public interface WorkerDAO {
     @Delete
     void delete(Worker worker);
 
-    @Query("SELECT * FROM workers WHERE id = id")
-    LiveData<Worker> getUserById(String id);
+    @Query("SELECT * FROM workers")
+    LiveData<List<Worker>> getAllWorkers();
 
 
 }

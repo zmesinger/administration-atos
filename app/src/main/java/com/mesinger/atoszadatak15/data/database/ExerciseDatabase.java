@@ -46,12 +46,12 @@ public abstract class ExerciseDatabase extends RoomDatabase {
         }
     };
 
-    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void>{
+    private static class PopulateTasksAsyncTask extends AsyncTask<Void, Void, Void>{
         private TaskDAO taskDAO;
         private LocalDateTime startTime = LocalDateTime.now();
         private LocalDateTime endTime = LocalDateTime.now();
 
-        private PopulateDbAsyncTask(TaskDAO taskDAO) {
+        private PopulateTasksAsyncTask(TaskDAO taskDAO) {
             this.taskDAO = taskDAO;
         }
 
@@ -67,5 +67,18 @@ public abstract class ExerciseDatabase extends RoomDatabase {
         }
     }
 
+    private static class PopulateWorkersAsyncTask extends AsyncTask<Void, Void, Void>{
+        private WorkerDAO workerDAO;
+
+        private PopulateWorkersAsyncTask(WorkerDAO workerDAO) {
+            this.workerDAO = workerDAO;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            workerDAO.insert(new Worker(0, "John", "Doe", "cleaner", "1234567891234"));
+            return null;
+        }
+    }
 
 }
