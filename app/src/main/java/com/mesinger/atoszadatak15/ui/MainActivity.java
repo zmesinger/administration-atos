@@ -25,20 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
 
-        final TaskAdapter adapter = new TaskAdapter();
-        recyclerView.setAdapter(adapter);
-
-        viewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        viewModel.geAllTasks().observe(this, new Observer<List<Task>>() {
-            @Override
-            public void onChanged(List<Task> tasks) {
-                adapter.setTasks(tasks);
-            }
-        });
 
     }
 }
