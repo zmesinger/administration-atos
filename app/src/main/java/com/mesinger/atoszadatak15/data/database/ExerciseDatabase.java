@@ -2,6 +2,7 @@ package com.mesinger.atoszadatak15.data.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -18,8 +19,12 @@ import com.mesinger.atoszadatak15.model.Worker;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
+
+
+
 @Database(entities = {Task.class, Worker.class}, version = 1)
 public abstract class ExerciseDatabase extends RoomDatabase {
+    private static final String TAG = "ExerciseDatabase";
 
     private static ExerciseDatabase instance;
     public abstract TaskDAO taskDAO();
@@ -36,6 +41,8 @@ public abstract class ExerciseDatabase extends RoomDatabase {
                     .addCallback(roomCallback)
                     .build();
 
+            Log.d(TAG, "getInstance");
+
         }
         return instance;
     }
@@ -45,7 +52,9 @@ public abstract class ExerciseDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             new PopulateTasksAsyncTask(instance).execute();
+            Log.d(TAG,"roomCallback");
         }
+
     };
 
     private static class PopulateTasksAsyncTask extends AsyncTask<Void, Void, Void>{
@@ -65,6 +74,8 @@ public abstract class ExerciseDatabase extends RoomDatabase {
                     17, TypeConverters.toDateString(startTime), TypeConverters.toDateString(endTime) ));
             taskDAO.insert(new Task("Cleaning", "Cleaning the building", "task", "open", 8,
                     19, TypeConverters.toDateString(startTime), TypeConverters.toDateString(endTime)));
+
+            Log.d(TAG, "populateTasksDoInBackground");
             return null;
         }
     }
@@ -82,5 +93,6 @@ public abstract class ExerciseDatabase extends RoomDatabase {
             return null;
         }
     }
+
 
 }
