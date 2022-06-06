@@ -6,8 +6,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mesinger.atoszadatak15.R;
+import com.mesinger.atoszadatak15.adapter.TaskAdapter;
 import com.mesinger.atoszadatak15.model.Task;
 import com.mesinger.atoszadatak15.viewmodels.TaskViewModel;
 
@@ -22,11 +25,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        final TaskAdapter adapter = new TaskAdapter();
+        recyclerView.setAdapter(adapter);
+
         viewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         viewModel.geAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasks) {
-                Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
+                adapter.setTasks(tasks);
             }
         });
 

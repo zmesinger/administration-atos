@@ -10,13 +10,7 @@ import java.time.OffsetDateTime;
 
 @Entity(tableName = "tasks")
 public class Task {
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -39,7 +33,13 @@ public class Task {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
 

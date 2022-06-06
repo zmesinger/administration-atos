@@ -33,6 +33,7 @@ public abstract class ExerciseDatabase extends RoomDatabase {
                     ExerciseDatabase.class,
                     "exercise_database")
                     .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
                     .build();
 
         }
@@ -43,6 +44,7 @@ public abstract class ExerciseDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+            new PopulateTasksAsyncTask(instance).execute();
         }
     };
 
@@ -51,8 +53,8 @@ public abstract class ExerciseDatabase extends RoomDatabase {
         private LocalDateTime startTime = LocalDateTime.now();
         private LocalDateTime endTime = LocalDateTime.now();
 
-        private PopulateTasksAsyncTask(TaskDAO taskDAO) {
-            this.taskDAO = taskDAO;
+        private PopulateTasksAsyncTask(ExerciseDatabase db) {
+            taskDAO = db.taskDAO();
         }
 
         @Override
@@ -70,8 +72,8 @@ public abstract class ExerciseDatabase extends RoomDatabase {
     private static class PopulateWorkersAsyncTask extends AsyncTask<Void, Void, Void>{
         private WorkerDAO workerDAO;
 
-        private PopulateWorkersAsyncTask(WorkerDAO workerDAO) {
-            this.workerDAO = workerDAO;
+        private PopulateWorkersAsyncTask(ExerciseDatabase db) {
+            workerDAO = db.workerDAO();
         }
 
         @Override

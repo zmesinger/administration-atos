@@ -15,19 +15,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TaskAdapter extends RecyclerView.Adapter {
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     private List<Task> tasks = new ArrayList<>();
+
+    public void setTasks(List<Task> tasks){
+        this.tasks = tasks;
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.task_item, parent, false);
-        return null;
+        return new TaskHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TaskHolder holder, int position) {
+        Task currentTask = tasks.get(position);
+        holder.textViewName.setText(currentTask.getName());
+        holder.textViewDescription.setText(currentTask.getDescription());
+        holder.textViewStatus.setText(currentTask.getStatus());
 
     }
 
@@ -35,6 +45,8 @@ public class TaskAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return tasks.size();
     }
+
+
 
     class TaskHolder extends RecyclerView.ViewHolder{
 
