@@ -37,9 +37,6 @@ public class HomeFragment extends Fragment {
     public HomeFragment(){
 
     }
-
-
-
     private FragmentHomeBinding binding;
     private RecyclerView recyclerView;
     private TaskViewModel viewModel;
@@ -57,8 +54,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
 
 
         TaskAdapter adapter = setupRecyclerView();

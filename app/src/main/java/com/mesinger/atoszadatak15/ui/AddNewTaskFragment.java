@@ -1,31 +1,23 @@
 package com.mesinger.atoszadatak15.ui;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+
 import com.mesinger.atoszadatak15.R;
-import com.mesinger.atoszadatak15.data.TypeConverters;
 import com.mesinger.atoszadatak15.databinding.FragmentAddNewTaskBinding;
 import com.mesinger.atoszadatak15.viewmodels.TaskViewModel;
-
-import java.time.LocalDateTime;
-
-import kotlinx.coroutines.scheduling.Task;
 
 public class AddNewTaskFragment extends Fragment {
 
@@ -158,7 +150,13 @@ public class AddNewTaskFragment extends Fragment {
 
     private void saveTask(){
         Button saveButton = binding.saveButton;
-        saveButton.setOnClickListener(view -> viewModel.saveTask());
+        saveButton.setOnClickListener(view -> {
+            viewModel.saveTask();
+            Navigation.findNavController(view).navigate(R.id.action_addNewTaskFragment_to_homeFragment);
+            Toast.makeText(requireContext(), "Task added!", Toast.LENGTH_SHORT).show();
+        });
+
+
     }
 
 
