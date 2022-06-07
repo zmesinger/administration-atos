@@ -10,9 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,13 +49,24 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+        TaskAdapter adapter = setupRecyclerView();
+        loadData(adapter);
+        navigateToAddNewTask();
+
+    }
+
+    private TaskAdapter setupRecyclerView(){
         recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-
         final TaskAdapter adapter = new TaskAdapter();
         recyclerView.setAdapter(adapter);
 
+        return adapter;
+    }
+
+    private void loadData(TaskAdapter adapter){
         viewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         viewModel.geAllTasks().observe(getViewLifecycleOwner(), new Observer<List<Task>>() {
             @Override
@@ -65,12 +74,9 @@ public class HomeFragment extends Fragment {
                 adapter.setTasks(tasks);
             }
         });
-
-
-        navigateToAdDNewTask();
     }
 
-    private void navigateToAdDNewTask(){
+    private void navigateToAddNewTask(){
         FloatingActionButton button = binding.buttonAdd;
         button.setOnClickListener(new View.OnClickListener(){
 
