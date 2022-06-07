@@ -7,20 +7,25 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mesinger.atoszadatak15.R;
 import com.mesinger.atoszadatak15.data.TypeConverters;
 import com.mesinger.atoszadatak15.databinding.FragmentAddNewTaskBinding;
-import com.mesinger.atoszadatak15.model.Task;
 import com.mesinger.atoszadatak15.viewmodels.TaskViewModel;
 
 import java.time.LocalDateTime;
+
+import kotlinx.coroutines.scheduling.Task;
 
 public class AddNewTaskFragment extends Fragment {
 
@@ -36,13 +41,17 @@ public class AddNewTaskFragment extends Fragment {
     }
 
     private FragmentAddNewTaskBinding binding;
-
+    private TaskViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAddNewTaskBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        viewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+
+
 
         return view;
     }
@@ -51,39 +60,105 @@ public class AddNewTaskFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        initListeners();
         saveTask();
     }
 
-    private void save() {
-        String name = binding.nameTextField.getText().toString();
-        String description = binding.descriptionTextField.getText().toString();
-        String type = binding.typeTextField.getText().toString();
-        int complexity = Integer.parseInt(binding.complexityTextField.getText().toString());
-        LocalDateTime startTime = LocalDateTime.now();
-        LocalDateTime endTime = LocalDateTime.now();
 
-        Intent data = new Intent();
-        data.putExtra(EXTRA_NAME, name);
-        data.putExtra(EXTRA_DESCRIPTION, description);
-        data.putExtra(EXTRA_TYPE, type);
-        data.putExtra(EXTRA_COMPLEXITY, complexity);
-        data.putExtra(EXTRA_START_DATE_TIME, startTime);
-        data.putExtra(EXTRA_END_DATE_TIME, endTime);
+    public void initListeners(){
+        setName();
+        setDescription();
+        setType();
+        setComplexity();
+    }
 
-        getActivity().setResult(Activity.RESULT_OK, data);
-        getActivity().finish();
+    private void setComplexity() {
+        binding.complexityTextField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    viewModel.setComplexity(Integer.parseInt(binding.complexityTextField.getText().toString()));
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void setType() {
+        binding.typeTextField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    viewModel.setType(binding.typeTextField.getText().toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void setDescription() {
+        binding.descriptionTextField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    viewModel.setDescription(binding.descriptionTextField.getText().toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void setName(){
+        binding.nameTextField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    viewModel.setName(binding.nameTextField.getText().toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void saveTask(){
         Button saveButton = binding.saveButton;
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                save();
-            }
-        });
+        saveButton.setOnClickListener(view -> viewModel.saveTask());
     }
 
 

@@ -3,6 +3,8 @@ package com.mesinger.atoszadatak15.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.mesinger.atoszadatak15.data.TypeConverters;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -34,6 +36,9 @@ public class Task {
         this.endDateTime = endDateTime;
     }
 
+    public Task() {
+
+    }
 
 
     public int getId() {

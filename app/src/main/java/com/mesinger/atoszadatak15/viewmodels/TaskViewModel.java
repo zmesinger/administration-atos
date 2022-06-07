@@ -18,7 +18,7 @@ public class TaskViewModel extends AndroidViewModel {
     private TaskRepository repository;
     private LiveData<List<Task>> tasks;
 
-
+    Task task = new Task();
 
     public TaskViewModel(@NonNull Application application) {
         super(application);
@@ -28,9 +28,21 @@ public class TaskViewModel extends AndroidViewModel {
 
     }
 
+    public void setName(String name) {
+        task.setName(name);
+    }
 
+    public void setDescription(String description) {
+        task.setDescription(description);
+    }
 
+    public void setType(String type) {
+        task.setType(type);
+    }
 
+    public void setComplexity(int complexity) {
+        task.setComplexity(complexity);
+    }
 
     public void insert(Task task){
         repository.insert(task);
@@ -46,5 +58,10 @@ public class TaskViewModel extends AndroidViewModel {
 
     public LiveData<List<Task>> geAllTasks(){
         return tasks;
+    }
+
+    public void saveTask() {
+
+        insert(task);
     }
 }
