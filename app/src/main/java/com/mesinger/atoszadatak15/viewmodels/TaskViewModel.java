@@ -62,6 +62,9 @@ public class TaskViewModel extends AndroidViewModel {
 
     public void saveTask() {
 
+        task.setStatus("open");
+
+
         insert(task);
     }
 }

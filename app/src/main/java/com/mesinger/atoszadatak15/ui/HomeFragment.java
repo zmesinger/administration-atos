@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,6 +64,7 @@ public class HomeFragment extends Fragment {
         TaskAdapter adapter = setupRecyclerView();
         loadData(adapter);
         navigateToAddNewTask();
+        deleteTask(adapter);
 
     }
 
@@ -93,6 +95,22 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(view).navigate(action_homeFragment_to_addNewTaskFragment);
             }
         });
+    }
+
+    private void deleteTask(TaskAdapter adapter){
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+                viewModel.delete(adapter.getTaskAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(requireContext(), "Task deleted!", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 
 
