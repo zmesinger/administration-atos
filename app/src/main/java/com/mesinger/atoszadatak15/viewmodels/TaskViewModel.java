@@ -6,15 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.mesinger.atoszadatak15.data.TypeConverters;
 import com.mesinger.atoszadatak15.data.repository.TaskRepository;
 import com.mesinger.atoszadatak15.model.Task;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TaskViewModel extends AndroidViewModel {
 
     private TaskRepository repository;
     private LiveData<List<Task>> tasks;
+
+
 
     public TaskViewModel(@NonNull Application application) {
         super(application);
@@ -23,6 +27,10 @@ public class TaskViewModel extends AndroidViewModel {
         tasks = repository.getAllTasks();
 
     }
+
+
+
+
 
     public void insert(Task task){
         repository.insert(task);
