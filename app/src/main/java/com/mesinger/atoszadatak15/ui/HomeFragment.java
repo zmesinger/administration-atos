@@ -106,6 +106,13 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(requireContext(), "Task deleted!", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
+
+        adapter.setOnClickListener(new TaskAdapter.IOnItemClickListener() {
+            @Override
+            public void onItemClick(Task task) {
+
+            }
+        });
     }
 
 

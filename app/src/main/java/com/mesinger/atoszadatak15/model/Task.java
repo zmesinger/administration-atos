@@ -1,5 +1,8 @@
 package com.mesinger.atoszadatak15.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -114,4 +117,6 @@ public class Task {
     public void setEndDateTime(String endDateTime) {
         this.endDateTime = endDateTime;
     }
+
+
 }
