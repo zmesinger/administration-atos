@@ -100,9 +100,7 @@ public class Task implements Parcelable{
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() { return description; }
 
     public void setDescription(String description) {
         this.description = description;

@@ -56,4 +56,5 @@ public class WorkerViewModel extends AndroidViewModel {
     public void saveWorker() {
         insert(worker);
     }
+
 }
