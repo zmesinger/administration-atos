@@ -13,4 +13,7 @@
     <string name="save_task">Save task</string>
     <string name="task_complexity">Task complexity</string>
     <string name="task_end_date">Task end date</string>
+    <string name="time_spent">Time spent</string>
+    <string name="time_started">Time started</string>
+    <string name="time_ended">Time ended</string>
 </resources>

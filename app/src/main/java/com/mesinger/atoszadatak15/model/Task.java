@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 
 
 @Entity(tableName = "tasks")
-public class Task {
+public class Task implements Parcelable{
 
 
     @PrimaryKey(autoGenerate = true)
@@ -43,6 +43,30 @@ public class Task {
 
     }
 
+
+    protected Task(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        description = in.readString();
+        type = in.readString();
+        status = in.readString();
+        complexity = in.readInt();
+        timeSpent = in.readInt();
+        startDateTime = in.readString();
+        endDateTime = in.readString();
+    }
+
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -119,4 +143,21 @@ public class Task {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(description);
+        parcel.writeString(type);
+        parcel.writeString(status);
+        parcel.writeInt(complexity);
+        parcel.writeInt(timeSpent);
+        parcel.writeString(startDateTime);
+        parcel.writeString(endDateTime);
+    }
 }

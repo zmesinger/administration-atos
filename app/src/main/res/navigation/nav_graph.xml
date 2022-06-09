@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addNewTaskFragment"
             app:destination="@id/addNewTaskFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewTaskFragment"
@@ -21,6 +24,15 @@
         tools:layout="@layout/fragment_add_new_task" >
         <action
             android:id="@+id/action_addNewTaskFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editTaskFragment"
+        android:name="com.mesinger.atoszadatak15.ui.EditTaskFragment"
+        android:label="fragment_edit_task"
+        tools:layout="@layout/fragment_edit_task" >
+        <action
+            android:id="@+id/action_editTaskFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
