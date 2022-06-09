@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mesinger.atoszadatak15.R;
 import com.mesinger.atoszadatak15.model.Task;
+import com.mesinger.atoszadatak15.model.Worker;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -25,6 +25,11 @@ public class WorkerViewModel extends AndroidViewModel {
         workers = repository.getAllWorkers();
 
     }
+
+    public LiveData<List<Worker>> getAllWorkers(){
+        return workers;
+    }
+
     public void insert(Worker worker){
         repository.insert(worker);
     }

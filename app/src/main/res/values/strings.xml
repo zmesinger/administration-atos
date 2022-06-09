@@ -20,4 +20,5 @@
     <string name="worker_surname">Worker surname</string>
     <string name="work_position">Work position</string>
     <string name="save_worker">Save worker</string>
+    <string name="surname">Surname</string>
 </resources>
