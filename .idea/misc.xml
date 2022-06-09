@@ -4,9 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Projects/RMALV/AtosZadatak15/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Projects/administration-atos/app/src/main/res/drawable/ic_add.xml" value="0.333" />
+        <entry key="..\:/Projects/administration-atos/app/src/main/res/drawable/ic_add_worker.xml" value="0.333" />
         <entry key="..\:/Projects/administration-atos/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Projects/administration-atos/app/src/main/res/layout/fragment_add_new_task.xml" value="0.358695652173913" />
-        <entry key="..\:/Projects/administration-atos/app/src/main/res/layout/fragment_edit_task.xml" value="0.18541666666666667" />
+        <entry key="..\:/Projects/administration-atos/app/src/main/res/layout/fragment_add_new_worker.xml" value="0.3625" />
+        <entry key="..\:/Projects/administration-atos/app/src/main/res/layout/fragment_edit_task.xml" value="0.33" />
         <entry key="..\:/Projects/administration-atos/app/src/main/res/layout/fragment_home.xml" value="0.358695652173913" />
         <entry key="..\:/Projects/administration-atos/app/src/main/res/layout/task_item.xml" value="0.358695652173913" />
       </map>

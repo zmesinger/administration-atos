@@ -40,6 +40,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         holder.textViewDescription.setText(currentTask.getDescription());
         holder.textViewStatus.setText(currentTask.getStatus());
 
+
+
     }
 
     public Task getTaskAt(int position){
@@ -65,13 +67,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             textViewDescription = itemView.findViewById(R.id.tv_description);
             textViewStatus = itemView.findViewById(R.id.tv_status);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if(listener != null && position != RecyclerView.NO_POSITION){
-                        listener.onItemClick(tasks.get(position));
-                    }
+            itemView.setOnClickListener(view -> {
+                int position = TaskHolder.this.getAdapterPosition();
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(tasks.get(position));
                 }
             });
         }

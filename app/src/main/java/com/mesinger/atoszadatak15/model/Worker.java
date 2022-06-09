@@ -23,6 +23,10 @@ public class Worker {
         this.oib = oib;
     }
 
+    public Worker() {
+
+    }
+
     public int getId() {
         return id;
     }

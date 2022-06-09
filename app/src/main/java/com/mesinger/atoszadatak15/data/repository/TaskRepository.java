@@ -33,6 +33,10 @@ public class TaskRepository {
         new DeleteTaskAsyncTask(taskDAO).execute(task);
     }
 
+    public LiveData<Task> getTaskById(int id){
+        return taskDAO.getTaskById(id);
+    }
+
     public LiveData<List<Task>> getAllTasks(){
         return tasks;
     }
@@ -79,5 +83,7 @@ public class TaskRepository {
             return null;
         }
     }
+
+
 
  }

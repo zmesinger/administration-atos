@@ -16,4 +16,8 @@
     <string name="time_spent">Time spent</string>
     <string name="time_started">Time started</string>
     <string name="time_ended">Time ended</string>
+    <string name="worker_name">Worker name</string>
+    <string name="worker_surname">Worker surname</string>
+    <string name="work_position">Work position</string>
+    <string name="save_worker">Save worker</string>
 </resources>

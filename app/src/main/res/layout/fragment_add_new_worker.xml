@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.AddNewTaskFragment">
+    tools:context=".ui.AddNewWorkerFragment"
+    android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameTextLayout"
         android:layout_width="match_parent"
         android:padding="4dp"
         android:layout_height="wrap_content"
-        android:hint= "@string/task_name"
+        android:hint= "@string/worker_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -24,15 +24,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/descriptionTextLayout"
+        android:id="@+id/surnameTextLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:padding="4dp"
-        android:hint="@string/task_description"
+        android:layout_height="wrap_content"
+        android:hint= "@string/worker_surname"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/descriptionTextField"
+            android:id="@+id/surnameTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -41,14 +41,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/typeTextLayout"
+        android:id="@+id/workPositionTextLayout"
         android:layout_width="match_parent"
+        android:padding="4dp"
         android:layout_height="wrap_content"
-        android:hint="@string/task_type"
+        android:hint= "@string/work_position"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/typeTextField"
+            android:id="@+id/workPositionTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -56,61 +57,22 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/complexityTextLayout"
-        android:padding="4dp"
+        android:id="@+id/oibTextLayout"
         android:layout_width="match_parent"
+        android:padding="4dp"
         android:layout_height="wrap_content"
-        android:hint="@string/task_complexity"
+        android:hint= "Worker OIB"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/complexityTextField"
+            android:id="@+id/oibTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
-
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/startDateTextLayout"
-        android:padding="4dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_start_date"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/startDateTextField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/endDateTextLayout"
-        android:padding="4dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_end_date"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/endDateTextField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-
 
 
     <Button
@@ -120,7 +82,7 @@
         android:padding="8dp"
         android:textSize="14sp"
         android:layout_marginStart="8dp"
-        android:text="@string/save_task"
+        android:text="@string/save_worker"
         style="?attr/materialButtonOutlinedStyle"
         />
 

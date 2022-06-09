@@ -1,10 +1,12 @@
 package com.mesinger.atoszadatak15.ui;
 
 import static com.mesinger.atoszadatak15.R.id.action_homeFragment_to_addNewTaskFragment;
+import static com.mesinger.atoszadatak15.R.id.lin_layout_item_task;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,13 +34,10 @@ import com.mesinger.atoszadatak15.viewmodels.TaskViewModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment{
     public static final int ADD_TASK_REQUEST = 1;
-
-    public HomeFragment(){
-
-    }
     private FragmentHomeBinding binding;
     private RecyclerView recyclerView;
     private TaskViewModel viewModel;
@@ -47,6 +48,9 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+
+
         return view;
 
     }
@@ -78,19 +82,16 @@ public class HomeFragment extends Fragment {
 
     private void loadData(TaskAdapter adapter){
         viewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        viewModel.geAllTasks().observe(getViewLifecycleOwner(), tasks ->
-                adapter.setTasks(tasks));
+        viewModel.geAllTasks().observe(getViewLifecycleOwner(), tasks -> {
+            adapter.setTasks(tasks);
+        });
     }
 
     private void navigateToAddNewTask(){
         FloatingActionButton button = binding.buttonAdd;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(action_homeFragment_to_addNewTaskFragment);
-            }
-        });
+        button.setOnClickListener(view -> Navigation.findNavController(view).navigate(action_homeFragment_to_addNewTaskFragment));
     }
+
 
     private void deleteTask(TaskAdapter adapter){
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -107,19 +108,12 @@ public class HomeFragment extends Fragment {
             }
         }).attachToRecyclerView(recyclerView);
 
-        adapter.setOnClickListener(new TaskAdapter.IOnItemClickListener() {
-            @Override
-            public void onItemClick(Task task) {
-
-            }
+        adapter.setOnClickListener(task -> {
+            NavDirections action = HomeFragmentDirections.actionHomeFragmentToEditTaskFragment(task);
+            Navigation.findNavController(requireView()).navigate(action);
+            Log.d("HomeFragment", task.toString());
         });
     }
-
-
-
-
-
-
 
 
 

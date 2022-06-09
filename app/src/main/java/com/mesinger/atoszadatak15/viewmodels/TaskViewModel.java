@@ -28,6 +28,11 @@ public class TaskViewModel extends AndroidViewModel {
 
     }
 
+    public LiveData<Task> getTaskById(int id){
+        return repository.getTaskById(id);
+    }
+
+
     public void setName(String name) {
         task.setName(name);
     }

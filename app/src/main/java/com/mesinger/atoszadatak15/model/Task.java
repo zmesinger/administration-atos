@@ -43,6 +43,20 @@ public class Task implements Parcelable{
 
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", status='" + status + '\'' +
+                ", complexity=" + complexity +
+                ", timeSpent=" + timeSpent +
+                ", startDateTime='" + startDateTime + '\'' +
+                ", endDateTime='" + endDateTime + '\'' +
+                '}';
+    }
 
     protected Task(Parcel in) {
         id = in.readInt();
