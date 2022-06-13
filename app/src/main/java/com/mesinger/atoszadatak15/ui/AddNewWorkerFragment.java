@@ -6,12 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.mesinger.atoszadatak15.R;
 import com.mesinger.atoszadatak15.databinding.FragmentAddNewWorkerBinding;
@@ -53,6 +55,8 @@ public class AddNewWorkerFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 viewModel.saveWorker();
+                Navigation.findNavController(view).navigate(R.id.action_addNewWorkerFragment_to_workersListFragment);
+                Toast.makeText(requireContext(), "Worker added!", Toast.LENGTH_SHORT).show();
             }
         });
     }

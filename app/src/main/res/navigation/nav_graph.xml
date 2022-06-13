@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_workersListFragment_to_addNewWorkerFragment"
             app:destination="@id/addNewWorkerFragment" />
+        <action
+            android:id="@+id/action_workersListFragment_to_editWorkerFragment"
+            app:destination="@id/editWorkerFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewWorkerFragment"
@@ -57,5 +60,14 @@
         <action
             android:id="@+id/action_addNewWorkerFragment_to_workersListFragment"
             app:destination="@id/workersListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editWorkerFragment"
+        android:name="com.mesinger.atoszadatak15.ui.EditWorkerFragment"
+        android:label="fragment_edit_worker"
+        tools:layout="@layout/fragment_edit_worker" >
+        <argument
+            android:name="worker"
+            app:argType="com.mesinger.atoszadatak15.model.Worker" />
     </fragment>
 </navigation>

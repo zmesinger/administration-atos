@@ -8,11 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,6 +97,12 @@ public class WorkersListFragment extends Fragment {
                 Toast.makeText(requireContext(), "Worker deleted!", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
+
+        adapter.setOnClickListener(worker -> {
+            NavDirections action = WorkersListFragmentDirections.actionWorkersListFragmentToEditWorkerFragment(worker);
+            Navigation.findNavController(requireView()).navigate(action);
+            Log.d("WorkersListFragment", worker.getName());
+        });
 
 
     }
