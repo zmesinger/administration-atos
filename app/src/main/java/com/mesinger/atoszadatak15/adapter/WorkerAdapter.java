@@ -7,12 +7,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mesinger.atoszadatak15.R;
+import com.mesinger.atoszadatak15.model.Task;
 import com.mesinger.atoszadatak15.model.Worker;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.WorkerHolder> {
     private IOnWorkerItemClickListener listener;
-    private List<Worker> workers;
+    private List<Worker> workers = new ArrayList<>();
 
 
     public void setWorkers(List<Worker> workers){
@@ -37,6 +40,10 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.WorkerHold
         holder.tvSurname.setText(currentWorker.getSurname());
         holder.tvWorkPosition.setText(currentWorker.getWorkPosition());
 
+    }
+
+    public Worker getWorkerAt(int position){
+        return workers.get(position);
     }
 
     @Override

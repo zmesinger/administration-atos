@@ -111,7 +111,7 @@ public class AddNewWorkerFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                viewModel.setSurname(binding.surnameTextField.toString());
+                viewModel.setSurname(binding.surnameTextField.getText().toString());
             }
 
             @Override

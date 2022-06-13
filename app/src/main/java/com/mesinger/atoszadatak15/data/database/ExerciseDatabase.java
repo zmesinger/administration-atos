@@ -39,6 +39,7 @@ public abstract class ExerciseDatabase extends RoomDatabase {
                     "exercise_database")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
+                    .addCallback(workerCallback)
                     .build();
 
             Log.d(TAG, "getInstance");
@@ -52,6 +53,16 @@ public abstract class ExerciseDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             new PopulateTasksAsyncTask(instance).execute();
+            Log.d(TAG,"roomCallback");
+        }
+
+    };
+
+    private static RoomDatabase.Callback workerCallback = new RoomDatabase.Callback(){
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateWorkersAsyncTask(instance).execute();
             Log.d(TAG,"roomCallback");
         }
 

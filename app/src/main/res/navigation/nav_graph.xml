@@ -40,4 +40,22 @@
             android:name="task"
             app:argType="com.mesinger.atoszadatak15.model.Task" />
     </fragment>
+    <fragment
+        android:id="@+id/workersListFragment"
+        android:name="com.mesinger.atoszadatak15.ui.WorkersListFragment"
+        android:label="fragment_workers_list"
+        tools:layout="@layout/fragment_workers_list" >
+        <action
+            android:id="@+id/action_workersListFragment_to_addNewWorkerFragment"
+            app:destination="@id/addNewWorkerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewWorkerFragment"
+        android:name="com.mesinger.atoszadatak15.ui.AddNewWorkerFragment"
+        android:label="fragment_add_new_worker"
+        tools:layout="@layout/fragment_add_new_worker" >
+        <action
+            android:id="@+id/action_addNewWorkerFragment_to_workersListFragment"
+            app:destination="@id/workersListFragment" />
+    </fragment>
 </navigation>
