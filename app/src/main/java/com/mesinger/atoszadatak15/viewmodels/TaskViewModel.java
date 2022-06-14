@@ -10,6 +10,7 @@ import com.mesinger.atoszadatak15.data.TypeConverters;
 import com.mesinger.atoszadatak15.data.repository.TaskRepository;
 import com.mesinger.atoszadatak15.model.Task;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -47,6 +48,14 @@ public class TaskViewModel extends AndroidViewModel {
 
     public void setComplexity(int complexity) {
         task.setComplexity(complexity);
+    }
+
+    public void setStartTime(String startTime){
+        task.setStartDateTime(startTime);
+    }
+
+    public void setEndTime(String endTime){
+        task.setEndDateTime(endTime);
     }
 
     public void insert(Task task){

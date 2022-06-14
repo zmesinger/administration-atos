@@ -1,5 +1,7 @@
 package com.mesinger.atoszadatak15.ui;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -7,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,18 +19,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.mesinger.atoszadatak15.R;
 import com.mesinger.atoszadatak15.databinding.FragmentAddNewTaskBinding;
 import com.mesinger.atoszadatak15.viewmodels.TaskViewModel;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class AddNewTaskFragment extends Fragment {
 
-    public static final String EXTRA_NAME = "com.mesinger.atoszadatak15.ui.EXTRA_NAME";
-    public static final String EXTRA_DESCRIPTION = "com.mesinger.atoszadatak15.ui.EXTRA_DESCRIPTION";
-    public static final String EXTRA_TYPE = "com.mesinger.atoszadatak15.ui.EXTRA_TYPE";
-    public static final String EXTRA_COMPLEXITY = "com.mesinger.atoszadatak15.ui.EXTRA_COMPLEXITY";
-    public static final String EXTRA_START_DATE_TIME = "com.mesinger.atoszadatak15.ui.EXTRA_START_DATE_TIME";
-    public static final String EXTRA_END_DATE_TIME = "com.mesinger.atoszadatak15.ui.EXTRA_END_DATE_TIME";
+
 
     public AddNewTaskFragment(){
 
@@ -62,6 +65,83 @@ public class AddNewTaskFragment extends Fragment {
         setDescription();
         setType();
         setComplexity();
+        setStartTime();
+        setEndTime();
+    }
+
+    private void setStartTime() {
+        binding.startDateTextField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showStartDateTimeDialog(binding.startDateTextField);
+                viewModel.setStartTime(binding.startDateTextField.getText().toString());
+            }
+        });
+    }
+
+    private void setEndTime(){
+        binding.endDateTextField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showEndDateTimeDialog(binding.endDateTextField);
+                viewModel.setEndTime(binding.endDateTextField.getText().toString());
+            }
+        });
+    }
+
+
+    private void showStartDateTimeDialog(TextInputEditText startDateTextField) {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY, hour);
+                        calendar.set(Calendar.MINUTE, minute);
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm");
+
+                        binding.startDateTextField.setText(simpleDateFormat.format(calendar.getTime()));
+                    }
+                };
+                new TimePickerDialog(requireContext(), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+            }
+        };
+
+        new DatePickerDialog(getContext(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+    private void showEndDateTimeDialog(TextInputEditText startDateTextField) {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY, hour);
+                        calendar.set(Calendar.MINUTE, minute);
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm");
+
+                        binding.endDateTextField.setText(simpleDateFormat.format(calendar.getTime()));
+
+                    }
+                };
+                new TimePickerDialog(requireContext(), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+            }
+        };
+
+        new DatePickerDialog(getContext(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private void setComplexity() {
@@ -147,6 +227,8 @@ public class AddNewTaskFragment extends Fragment {
             }
         });
     }
+
+
 
     private void saveTask(){
         Button saveButton = binding.saveButton;
