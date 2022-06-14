@@ -53,8 +53,6 @@ public class EditTaskFragment extends Fragment {
         updateTask(setUpdatedTaskValues());
 
 
-
-
     }
 
     public void displayData(Task task){

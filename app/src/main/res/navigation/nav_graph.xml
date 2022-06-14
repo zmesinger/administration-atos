@@ -69,5 +69,8 @@
         <argument
             android:name="worker"
             app:argType="com.mesinger.atoszadatak15.model.Worker" />
+        <action
+            android:id="@+id/action_editWorkerFragment_to_workersListFragment"
+            app:destination="@id/workersListFragment" />
     </fragment>
 </navigation>
