@@ -33,9 +33,10 @@ public class WorkersListFragment extends Fragment {
     private static final String ADMIN = "admin";
     private static final String SUPERUSER = "superuser";
     private static final String USER = "user";
-    private WorkersListFragmentArgs args;
+    private UserViewModel userViewModel;
     private FragmentWorkersListBinding binding;
     private WorkerViewModel workerViewModel;
+    private WorkersListFragmentArgs args;
     private RecyclerView recyclerView;
     private User loggedUser;
 
@@ -58,15 +59,28 @@ public class WorkersListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         args = WorkersListFragmentArgs.fromBundle(getArguments());
         loggedUser = args.getUser();
+
 
         WorkerAdapter adapter = setupRecyclerView();
         loadData(adapter);
         validateAddNew();
         navigateToAddNewWorker();
+        navigateToTasks();
         deleteWorker(adapter);
 
+    }
+
+    private void navigateToTasks() {
+        binding.buttonTasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavDirections action = WorkersListFragmentDirections.actionWorkersListFragmentToHomeFragment(loggedUser);
+                Navigation.findNavController(requireView()).navigate(action);
+            }
+        });
     }
 
     private void validateAddNew(){
@@ -101,22 +115,24 @@ public class WorkersListFragment extends Fragment {
 
 
     private void deleteWorker(WorkerAdapter adapter) {
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
+        if (loggedUser.getRole().equals(ADMIN)) {
+            new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                    return false;
+                }
 
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-                workerViewModel.delete(adapter.getWorkerAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(requireContext(), "Worker deleted!", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(recyclerView);
+                    workerViewModel.delete(adapter.getWorkerAt(viewHolder.getAdapterPosition()));
+                    Toast.makeText(requireContext(), "Worker deleted!", Toast.LENGTH_SHORT).show();
+                }
+            }).attachToRecyclerView(recyclerView);
+        }
 
         adapter.setOnClickListener(worker -> {
-            NavDirections action = WorkersListFragmentDirections.actionWorkersListFragmentToEditWorkerFragment(worker);
+            NavDirections action = WorkersListFragmentDirections.actionWorkersListFragmentToEditWorkerFragment(worker, loggedUser);
             Navigation.findNavController(requireView()).navigate(action);
             Log.d("WorkersListFragment", worker.getName());
         });

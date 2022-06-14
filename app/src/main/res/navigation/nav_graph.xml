@@ -16,11 +16,14 @@
         <action
             android:id="@+id/action_homeFragment_to_editTaskFragment"
             app:destination="@id/editTaskFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_workersListFragment"
+            app:destination="@id/workersListFragment" />
         <argument
             android:name="user"
             app:argType="com.mesinger.atoszadatak15.model.User" />
         <action
-            android:id="@+id/action_homeFragment_to_workersListFragment"
+            android:id="@+id/action_homeFragment_to_workersListFragment2"
             app:destination="@id/workersListFragment" />
     </fragment>
     <fragment
@@ -63,6 +66,9 @@
         <argument
             android:name="user"
             app:argType="com.mesinger.atoszadatak15.model.User" />
+        <action
+            android:id="@+id/action_workersListFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewWorkerFragment"
@@ -84,6 +90,9 @@
         <action
             android:id="@+id/action_editWorkerFragment_to_workersListFragment"
             app:destination="@id/workersListFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.mesinger.atoszadatak15.model.User" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"

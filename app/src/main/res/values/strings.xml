@@ -23,4 +23,6 @@
     <string name="surname">Surname</string>
     <string name="worker_oib">Worker OIB</string>
     <string name="enter_username">Enter username</string>
+    <string name="go_to_workers">Go to workers</string>
+    <string name="go_to_tasks">Go to tasks</string>
 </resources>

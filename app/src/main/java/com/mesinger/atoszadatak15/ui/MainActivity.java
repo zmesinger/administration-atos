@@ -1,6 +1,7 @@
 package com.mesinger.atoszadatak15.ui;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -42,16 +43,5 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
 
-        BottomNavigationView bottomNavigationView = binding.bottomNavView;
-
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        NavController navController = navHostFragment.getNavController();
-
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
-
-
-
-    }
+        }
 }

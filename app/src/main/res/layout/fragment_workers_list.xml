@@ -17,6 +17,17 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
         android:layout_gravity="bottom|end"
-        android:layout_margin="32dp"/>
+        android:layout_marginBottom="84dp"
+        android:layout_marginEnd="32dp"/>
+
+    <Button
+        android:id="@+id/buttonTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/go_to_tasks"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="20dp"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

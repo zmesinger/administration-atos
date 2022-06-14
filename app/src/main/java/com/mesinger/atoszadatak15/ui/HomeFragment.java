@@ -3,12 +3,14 @@ package com.mesinger.atoszadatak15.ui;
 import static com.mesinger.atoszadatak15.R.id.action_homeFragment_to_addNewTaskFragment;
 import static com.mesinger.atoszadatak15.R.id.lin_layout_item_task;
 import static com.mesinger.atoszadatak15.R.id.nav_graph;
+import static com.mesinger.atoszadatak15.R.id.usernameTextField;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mesinger.atoszadatak15.R;
 import com.mesinger.atoszadatak15.adapter.TaskAdapter;
@@ -35,6 +38,7 @@ import com.mesinger.atoszadatak15.databinding.FragmentHomeBinding;
 import com.mesinger.atoszadatak15.model.Task;
 import com.mesinger.atoszadatak15.model.User;
 import com.mesinger.atoszadatak15.viewmodels.TaskViewModel;
+import com.mesinger.atoszadatak15.viewmodels.UserViewModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -61,9 +65,6 @@ public class HomeFragment extends Fragment{
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-
-
-
         return view;
 
     }
@@ -75,24 +76,31 @@ public class HomeFragment extends Fragment{
         args = HomeFragmentArgs.fromBundle(getArguments());
         loggedUser = args.getUser();
 
-
         TaskAdapter adapter = setupRecyclerView();
         loadData(adapter);
-        validateAddNew(loggedUser);
+        validateAddNew();
         navigateToAddNewTask();
+        navigateToWorkers();
         deleteTask(adapter);
 
+    }
 
-
+    private void navigateToWorkers(){
+        binding.buttonWorkers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavDirections action = HomeFragmentDirections.actionHomeFragmentToWorkersListFragment(loggedUser);
+                Navigation.findNavController(requireView()).navigate(action);
+            }
+        });
 
     }
 
 
+    private void validateAddNew(){
 
-
-    private void validateAddNew(User loggedUser){
         if(loggedUser.getRole().equals(USER)){
-            binding.buttonAdd.setVisibility(View.INVISIBLE) ;
+            binding.buttonAdd.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -137,6 +145,7 @@ public class HomeFragment extends Fragment{
                 }
             }).attachToRecyclerView(recyclerView);
         }
+
 
         adapter.setOnClickListener(task -> {
             NavDirections action = HomeFragmentDirections.actionHomeFragmentToEditTaskFragment(task, loggedUser);

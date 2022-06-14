@@ -51,6 +51,7 @@ public class EditTaskFragment extends Fragment {
         args = EditTaskFragmentArgs.fromBundle(getArguments());
         task = args.getTask();
         loggedUser = args.getUser();
+
         displayData(task);
         disableUpdate();
         updateTask(setUpdatedTaskValues());
@@ -70,6 +71,8 @@ public class EditTaskFragment extends Fragment {
             binding.statusTextField.setFocusable(false);
         }
     }
+
+
 
     private void displayData(Task task){
         binding.nameTextField.setText(task.getName());

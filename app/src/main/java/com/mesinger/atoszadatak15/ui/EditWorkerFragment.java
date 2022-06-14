@@ -17,16 +17,19 @@ import android.widget.Toast;
 
 import com.mesinger.atoszadatak15.R;
 import com.mesinger.atoszadatak15.databinding.FragmentEditWorkerBinding;
+import com.mesinger.atoszadatak15.model.User;
 import com.mesinger.atoszadatak15.model.Worker;
 import com.mesinger.atoszadatak15.viewmodels.WorkerViewModel;
 
 
 public class EditWorkerFragment extends Fragment {
 
+    private static final String ADMIN = "admin";
     private FragmentEditWorkerBinding binding;
     private EditWorkerFragmentArgs args;
     private Worker worker;
     private WorkerViewModel viewModel;
+    private User loggedUser;
 
 
     public EditWorkerFragment() {
@@ -58,12 +61,23 @@ public class EditWorkerFragment extends Fragment {
 
         args = EditWorkerFragmentArgs.fromBundle(getArguments());
         worker = args.getWorker();
+        loggedUser = args.getUser();
 
         displayData(worker);
+        disableUpdate();
         updateWorker(setUpdatedWorkerValues());
 
 
 
+    }
+
+    private void disableUpdate(){
+        if(!loggedUser.equals(ADMIN)){
+            binding.nameTextField.setFocusable(false);
+            binding.surnameTextField.setFocusable(false);
+            binding.workPositionTextField.setFocusable(false);
+            binding.oibTextField.setFocusable(false);
+        }
     }
 
 

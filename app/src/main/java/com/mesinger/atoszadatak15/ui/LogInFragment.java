@@ -59,7 +59,8 @@ public class LogInFragment extends Fragment {
                 if(username.isEmpty() || password.isEmpty()){
                     Toast.makeText(requireActivity(), "Please fill all fields!", Toast.LENGTH_SHORT).show();
                 }else{
-                    viewModel.getUserFromDatabase(username, password);
+                    viewModel.setUser(viewModel.getUserFromDatabase(username, password));
+
                     if(viewModel.getUser() == null) {
                         Toast.makeText(requireActivity(), "Please check your username and password!", Toast.LENGTH_SHORT).show();
                     }else {
