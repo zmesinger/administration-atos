@@ -5,33 +5,34 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavArgs;
 import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputLayout;
 import com.mesinger.atoszadatak15.R;
 import com.mesinger.atoszadatak15.databinding.FragmentEditTaskBinding;
 import com.mesinger.atoszadatak15.model.Task;
+import com.mesinger.atoszadatak15.model.User;
 import com.mesinger.atoszadatak15.viewmodels.TaskViewModel;
 
 
 public class EditTaskFragment extends Fragment {
 
+    private static final String ADMIN = "admin";
+    private static final String SUPERUSER = "superuser";
+    private static final String USER = "user";
     private FragmentEditTaskBinding binding;
     private TaskViewModel viewModel;
     private EditTaskFragmentArgs args;
     private Task task;
-
+    private User loggedUser;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,13 +50,28 @@ public class EditTaskFragment extends Fragment {
 
         args = EditTaskFragmentArgs.fromBundle(getArguments());
         task = args.getTask();
+        loggedUser = args.getUser();
         displayData(task);
+        disableUpdate();
         updateTask(setUpdatedTaskValues());
 
 
     }
 
-    public void displayData(Task task){
+    private void disableUpdate(){
+        if(!loggedUser.equals(ADMIN)){
+            binding.nameTextField.setFocusable(false);
+            binding.descriptionTextField.setFocusable(false);
+            binding.typeTextField.setFocusable(false);
+            binding.complexityTextField.setFocusable(false);
+            binding.timeSpentTextField.setFocusable(false);
+            binding.startDateTextField.setFocusable(false);
+            binding.endDateTextField.setFocusable(false);
+            binding.statusTextField.setFocusable(false);
+        }
+    }
+
+    private void displayData(Task task){
         binding.nameTextField.setText(task.getName());
         binding.descriptionTextField.setText(task.getDescription());
         binding.typeTextField.setText(task.getType());
@@ -66,7 +82,7 @@ public class EditTaskFragment extends Fragment {
         binding.statusTextField.setText(task.getStatus());
     }
 
-    public void updateTask(Task task){
+    private void updateTask(Task task){
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

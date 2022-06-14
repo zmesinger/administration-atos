@@ -12,8 +12,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.mesinger.atoszadatak15.data.TaskDAO;
 import com.mesinger.atoszadatak15.data.TypeConverters;
+import com.mesinger.atoszadatak15.data.UserDAO;
 import com.mesinger.atoszadatak15.data.WorkerDAO;
 import com.mesinger.atoszadatak15.model.Task;
+import com.mesinger.atoszadatak15.model.User;
 import com.mesinger.atoszadatak15.model.Worker;
 
 import java.time.LocalDateTime;
@@ -22,13 +24,14 @@ import java.time.OffsetDateTime;
 
 
 
-@Database(entities = {Task.class, Worker.class}, version = 1)
+@Database(entities = {Task.class, Worker.class, User.class}, version = 1)
 public abstract class ExerciseDatabase extends RoomDatabase {
     private static final String TAG = "ExerciseDatabase";
 
     private static ExerciseDatabase instance;
     public abstract TaskDAO taskDAO();
     public abstract WorkerDAO workerDAO();
+    public abstract UserDAO userDAO();
 
 
     public static synchronized ExerciseDatabase getInstance(Context context){
@@ -36,10 +39,11 @@ public abstract class ExerciseDatabase extends RoomDatabase {
 
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     ExerciseDatabase.class,
-                    "exercise_database")
+                    "exercise_database").allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .addCallback(workerCallback)
+                    .addCallback(usersCallback)
                     .build();
 
             Log.d(TAG, "getInstance");
@@ -66,6 +70,15 @@ public abstract class ExerciseDatabase extends RoomDatabase {
             Log.d(TAG,"roomCallback");
         }
 
+    };
+
+    private static RoomDatabase.Callback usersCallback = new RoomDatabase.Callback(){
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateUsersAsyncTask(instance).execute();
+            Log.d(TAG, "usersCallback");
+        }
     };
 
     private static class PopulateTasksAsyncTask extends AsyncTask<Void, Void, Void>{
@@ -100,7 +113,22 @@ public abstract class ExerciseDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            workerDAO.insert(new Worker(0, "John", "Doe", "cleaner", "1234567891234"));
+            workerDAO.insert(new Worker(99, "John", "Doe", "cleaner" ,"1234567891234"));
+            return null;
+        }
+    }
+
+    private static class PopulateUsersAsyncTask extends AsyncTask<Void, Void, Void>{
+        private UserDAO userDAO;
+
+        private PopulateUsersAsyncTask(ExerciseDatabase db) { userDAO = db.userDAO();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            userDAO.insert(new User(1, "Superuser", "superuser", "superuser"));
+            userDAO.insert(new User(2, "Admin", "admin", "admin"));
+            userDAO.insert(new User(3, "User", "user", "user"));
             return null;
         }
     }

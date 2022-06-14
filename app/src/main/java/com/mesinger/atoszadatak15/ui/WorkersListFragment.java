@@ -23,14 +23,21 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mesinger.atoszadatak15.adapter.WorkerAdapter;
 import com.mesinger.atoszadatak15.databinding.FragmentWorkersListBinding;
+import com.mesinger.atoszadatak15.model.User;
+import com.mesinger.atoszadatak15.viewmodels.UserViewModel;
 import com.mesinger.atoszadatak15.viewmodels.WorkerViewModel;
 
 
 public class WorkersListFragment extends Fragment {
 
+    private static final String ADMIN = "admin";
+    private static final String SUPERUSER = "superuser";
+    private static final String USER = "user";
+    private WorkersListFragmentArgs args;
     private FragmentWorkersListBinding binding;
-    private WorkerViewModel viewModel;
+    private WorkerViewModel workerViewModel;
     private RecyclerView recyclerView;
+    private User loggedUser;
 
     public WorkersListFragment() {
         // Required empty public constructor
@@ -51,11 +58,21 @@ public class WorkersListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        args = WorkersListFragmentArgs.fromBundle(getArguments());
+        loggedUser = args.getUser();
+
         WorkerAdapter adapter = setupRecyclerView();
         loadData(adapter);
+        validateAddNew();
         navigateToAddNewWorker();
         deleteWorker(adapter);
 
+    }
+
+    private void validateAddNew(){
+        if(loggedUser.getRole().equals(USER)){
+            binding.buttonAdd.setVisibility(View.INVISIBLE) ;
+        }
     }
 
 
@@ -70,8 +87,8 @@ public class WorkersListFragment extends Fragment {
     }
 
     private void loadData(WorkerAdapter adapter) {
-        viewModel = new ViewModelProvider(this).get(WorkerViewModel.class);
-        viewModel.getAllWorkers().observe(getViewLifecycleOwner(), workers -> {
+        workerViewModel = new ViewModelProvider(this).get(WorkerViewModel.class);
+        workerViewModel.getAllWorkers().observe(getViewLifecycleOwner(), workers -> {
             adapter.setWorkers(workers);
         });
 
@@ -93,7 +110,7 @@ public class WorkersListFragment extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-                viewModel.delete(adapter.getWorkerAt(viewHolder.getAdapterPosition()));
+                workerViewModel.delete(adapter.getWorkerAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(requireContext(), "Worker deleted!", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);

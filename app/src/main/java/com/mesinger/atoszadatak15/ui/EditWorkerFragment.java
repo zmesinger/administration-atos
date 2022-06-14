@@ -37,6 +37,8 @@ public class EditWorkerFragment extends Fragment {
 
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,7 +63,10 @@ public class EditWorkerFragment extends Fragment {
         updateWorker(setUpdatedWorkerValues());
 
 
+
     }
+
+
 
     private void updateWorker(Worker worker) {
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
