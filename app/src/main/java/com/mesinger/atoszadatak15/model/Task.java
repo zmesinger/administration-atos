@@ -1,7 +1,12 @@
 package com.mesinger.atoszadatak15.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.mesinger.atoszadatak15.data.TypeConverters;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -9,14 +14,8 @@ import java.time.OffsetDateTime;
 
 
 @Entity(tableName = "tasks")
-public class Task {
-    public int getId() {
-        return id;
-    }
+public class Task implements Parcelable{
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -40,6 +39,56 @@ public class Task {
         this.endDateTime = endDateTime;
     }
 
+    public Task() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", status='" + status + '\'' +
+                ", complexity=" + complexity +
+                ", timeSpent=" + timeSpent +
+                ", startDateTime='" + startDateTime + '\'' +
+                ", endDateTime='" + endDateTime + '\'' +
+                '}';
+    }
+
+    protected Task(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        description = in.readString();
+        type = in.readString();
+        status = in.readString();
+        complexity = in.readInt();
+        timeSpent = in.readInt();
+        startDateTime = in.readString();
+        endDateTime = in.readString();
+    }
+
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
 
@@ -51,9 +100,7 @@ public class Task {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() { return description; }
 
     public void setDescription(String description) {
         this.description = description;
@@ -105,5 +152,24 @@ public class Task {
 
     public void setEndDateTime(String endDateTime) {
         this.endDateTime = endDateTime;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(description);
+        parcel.writeString(type);
+        parcel.writeString(status);
+        parcel.writeInt(complexity);
+        parcel.writeInt(timeSpent);
+        parcel.writeString(startDateTime);
+        parcel.writeString(endDateTime);
     }
 }

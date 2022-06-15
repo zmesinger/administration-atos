@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/logInFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.mesinger.atoszadatak15.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_addNewTaskFragment"
+            app:destination="@id/addNewTaskFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_workersListFragment"
+            app:destination="@id/workersListFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.mesinger.atoszadatak15.model.User" />
+        <action
+            android:id="@+id/action_homeFragment_to_workersListFragment2"
+            app:destination="@id/workersListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewTaskFragment"
+        android:name="com.mesinger.atoszadatak15.ui.AddNewTaskFragment"
+        android:label="fragment_add_new_task"
+        tools:layout="@layout/fragment_add_new_task" >
+        <action
+            android:id="@+id/action_addNewTaskFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editTaskFragment"
+        android:name="com.mesinger.atoszadatak15.ui.EditTaskFragment"
+        android:label="fragment_edit_task"
+        tools:layout="@layout/fragment_edit_task" >
+        <action
+            android:id="@+id/action_editTaskFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+
+
+        <argument
+            android:name="task"
+            app:argType="com.mesinger.atoszadatak15.model.Task" />
+        <argument
+            android:name="user"
+            app:argType="com.mesinger.atoszadatak15.model.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/workersListFragment"
+        android:name="com.mesinger.atoszadatak15.ui.WorkersListFragment"
+        android:label="fragment_workers_list"
+        tools:layout="@layout/fragment_workers_list" >
+        <action
+            android:id="@+id/action_workersListFragment_to_addNewWorkerFragment"
+            app:destination="@id/addNewWorkerFragment" />
+        <action
+            android:id="@+id/action_workersListFragment_to_editWorkerFragment"
+            app:destination="@id/editWorkerFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.mesinger.atoszadatak15.model.User" />
+        <action
+            android:id="@+id/action_workersListFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewWorkerFragment"
+        android:name="com.mesinger.atoszadatak15.ui.AddNewWorkerFragment"
+        android:label="fragment_add_new_worker"
+        tools:layout="@layout/fragment_add_new_worker" >
+        <action
+            android:id="@+id/action_addNewWorkerFragment_to_workersListFragment"
+            app:destination="@id/workersListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editWorkerFragment"
+        android:name="com.mesinger.atoszadatak15.ui.EditWorkerFragment"
+        android:label="fragment_edit_worker"
+        tools:layout="@layout/fragment_edit_worker" >
+        <argument
+            android:name="worker"
+            app:argType="com.mesinger.atoszadatak15.model.Worker" />
+        <action
+            android:id="@+id/action_editWorkerFragment_to_workersListFragment"
+            app:destination="@id/workersListFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.mesinger.atoszadatak15.model.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.mesinger.atoszadatak15.ui.LogInFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_logInFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>

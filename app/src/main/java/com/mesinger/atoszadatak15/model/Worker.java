@@ -1,10 +1,14 @@
 package com.mesinger.atoszadatak15.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "workers")
-public class Worker {
+public class Worker implements Parcelable {
 
 
 
@@ -22,6 +26,31 @@ public class Worker {
         this.workPosition = workPosition;
         this.oib = oib;
     }
+
+    public Worker() {
+
+    }
+
+
+    protected Worker(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        surname = in.readString();
+        workPosition = in.readString();
+        oib = in.readString();
+    }
+
+    public static final Creator<Worker> CREATOR = new Creator<Worker>() {
+        @Override
+        public Worker createFromParcel(Parcel in) {
+            return new Worker(in);
+        }
+
+        @Override
+        public Worker[] newArray(int size) {
+            return new Worker[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -62,4 +91,20 @@ public class Worker {
     public void setOib(String oib) {
         this.oib = oib;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(surname);
+        parcel.writeString(workPosition);
+        parcel.writeString(oib);
+    }
+
+
 }

@@ -6,9 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.mesinger.atoszadatak15.data.TypeConverters;
 import com.mesinger.atoszadatak15.data.repository.TaskRepository;
 import com.mesinger.atoszadatak15.model.Task;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TaskViewModel extends AndroidViewModel {
@@ -16,12 +19,43 @@ public class TaskViewModel extends AndroidViewModel {
     private TaskRepository repository;
     private LiveData<List<Task>> tasks;
 
+    Task task = new Task();
+
     public TaskViewModel(@NonNull Application application) {
         super(application);
 
         repository = new TaskRepository(application);
         tasks = repository.getAllTasks();
 
+    }
+
+    public LiveData<Task> getTaskById(int id){
+        return repository.getTaskById(id);
+    }
+
+
+    public void setName(String name) {
+        task.setName(name);
+    }
+
+    public void setDescription(String description) {
+        task.setDescription(description);
+    }
+
+    public void setType(String type) {
+        task.setType(type);
+    }
+
+    public void setComplexity(int complexity) {
+        task.setComplexity(complexity);
+    }
+
+    public void setStartTime(String startTime){
+        task.setStartDateTime(startTime);
+    }
+
+    public void setEndTime(String endTime){
+        task.setEndDateTime(endTime);
     }
 
     public void insert(Task task){
@@ -38,5 +72,13 @@ public class TaskViewModel extends AndroidViewModel {
 
     public LiveData<List<Task>> geAllTasks(){
         return tasks;
+    }
+
+    public void saveTask() {
+
+        task.setStatus("open");
+
+
+        insert(task);
     }
 }
